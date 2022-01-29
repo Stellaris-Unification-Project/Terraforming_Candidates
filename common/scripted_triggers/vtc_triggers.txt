@@ -9,7 +9,7 @@ vtc_has_modifier = {
 # if system was surveyed by any other country
 vtc_is_surveyed = {
 	any_country = {
-		NOT = { is_same_value = from.owner }
+		NOT = { is_same_empire = from.owner }
 		is_country_type = default
 		prev = { is_surveyed = { who = prev status = yes } }
 	}
