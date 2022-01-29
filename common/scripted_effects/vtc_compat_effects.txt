@@ -1,0 +1,122 @@
+# compat code for various mods
+vtc_spawn_special_blockers = {
+	if = {
+		limit = { has_global_flag = has_guillis_planet_modifiers_mod }
+
+		if = {
+			limit = {
+				OR = {
+					gpm_has_precursor_modifiers = yes
+					has_modifier = gpm_android_pleasure_palace
+					has_modifier = gpm_temple_of_the_ancient_one
+				}
+			}
+			# if any unique buildings should be build do that here
+			gpm_roll_planetary_features_unique = yes
+			gpm_remove_random_vanilla_planetary_feature = yes
+		}
+		# it adds +6 research orbital resources but it is lost because VTC
+		# is colonizable, add them to the moon
+		if = {
+			limit = {
+				has_modifier = gpm_time_displaced_planet
+				NOT = { has_planet_flag = vtc_gpm_fixed }
+			}
+			save_event_target_as = vtc_time_planet
+			solar_system = {
+				spawn_planet = {
+					class = "pc_shattered"
+					location = event_target:vtc_time_planet
+					size = 3
+					has_ring = no
+					orbit_location = yes
+					orbit_angle_offset = 0
+					orbit_distance_offset = 10
+					init_effect = {
+						set_name = "Time Displaced Anomaly"
+						prevent_anomaly = yes
+						clear_deposits = yes
+						add_deposit = gpm_d_time_displaced_planet
+						save_event_target_as = vtc_anomaly_location
+					}
+				}
+
+				create_ambient_object = {
+						location = event_target:vtc_anomaly_location
+						type = vtc_time_object
+						use_3d_location = yes
+						scale = 0.5
+				}
+			}
+			set_planet_flag = vtc_gpm_fixed
+		}
+	}
+}
+
+vtc_fix_gpm_planet = {
+	if = {
+		limit = { has_global_flag = has_guillis_planet_modifiers_mod }
+
+		# Guilli's code calls
+		# log = "Apply Guilli blockers for [This.GetName]"
+		vtc_spawn_special_blockers = yes
+		# planet Energy Grid graphics, code is taken from c_planet_graphics()
+		if = {
+			limit = {
+				has_modifier = gpm_precursor_energy_grid
+			}
+			switch = {
+				trigger = is_planet_class
+				vtc_molten = {
+					set_planet_entity = {
+						entity = "pm_molten_planet_energy_grid_entity"
+					}
+				}
+				vtc_candidate = {
+					set_planet_entity = {
+						entity = "pm_barren_planet_energy_grid_entity"
+					}
+				}
+				vtc_cold = {
+					set_planet_entity = {
+						entity = "pm_cold_barren_planet_energy_grid_entity"
+					}
+				}
+				vtc_toxic = {
+					set_planet_entity = {
+						entity = "pm_toxic_planet_energy_grid_entity"
+					}
+				}
+				vtc_frozen = {
+					set_planet_entity = {
+						entity = "pm_frozen_planet_energy_grid_entity"
+					}
+				}
+			}
+		}
+	}
+}
+
+vtc_fix_gpm_deposits = {
+	if = {
+		limit = { has_global_flag = has_guillis_planet_modifiers_mod }
+
+		# remove all GPM deposits if still exists
+		gpm_remove_planetary_features = yes
+		# restore those caused by remaining modifiers
+		gpm_roll_planetary_features_normal_habitable = yes
+		gpm_roll_planetary_features_unique = yes
+
+		every_deposit = {
+			limit = {
+				OR = {
+					is_deposit_type = gpm_d_small_wildlife
+					is_deposit_type = gpm_d_massive_wildlife
+					is_deposit_type = gpm_d_fertile_field
+				}
+			}
+			remove_deposit = yes
+			prev = { vtc_add_random_deposit = yes }
+		}
+	}
+}

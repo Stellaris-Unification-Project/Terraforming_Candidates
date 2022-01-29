@@ -1,0 +1,25 @@
+
+trait_vtc_cold_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_nuked_preference.dds"
+	modification = no
+}
+
+trait_vtc_candidate_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_nuked_preference.dds"
+	modification = no
+}
+
+trait_vtc_toxic_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_nuked_preference.dds"
+	modification = no
+}
+
+trait_vtc_molten_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_nuked_preference.dds"
+	modification = no
+}
+
+trait_vtc_frozen_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_nuked_preference.dds"
+	modification = no
+}

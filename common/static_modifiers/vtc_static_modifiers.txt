@@ -1,0 +1,32 @@
+candidate_planet = {
+	pop_environment_tolerance = -0.15
+	planet_buildings_cost_mult = 0.3
+	planet_districts_cost_mult = 0.2
+	planet_jobs_food_produces_mult = -0.50
+	pop_growth_speed = -0.40
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_vtc_candidate.dds"
+	icon_frame = 3
+}
+
+vtc_volcano_planet = {
+	pop_environment_tolerance = -0.30
+	planet_buildings_cost_mult = 0.50
+	planet_districts_cost_mult = 0.50
+	planet_jobs_food_produces_mult = -0.80
+	pop_growth_speed = -0.80
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_vtc_volcano.dds"
+	icon_frame = 3
+}
+
+vtc_ice_planet = {
+	pop_environment_tolerance = -0.30
+	planet_buildings_cost_mult = 0.50
+	planet_districts_cost_mult = 0.40
+	planet_jobs_food_produces_mult = -0.70
+	pop_growth_speed = -0.80
+
+	icon = "gfx/interface/icons/planet_modifiers/pm_vtc_ice.dds"
+	icon_frame = 3
+}

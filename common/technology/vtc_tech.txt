@@ -1,0 +1,71 @@
+# TC World Adaptation, allows colonization of the most harsh worlds
+tech_vtc_world_adaption = {
+	cost = 5000
+	area = society
+	tier = 3
+	category = { new_worlds }
+	prerequisites = { "tech_colonization_3" }
+	weight = 70
+
+	modifier = {
+		pop_environment_tolerance = 0.05
+		vtc_candidate_habitability = 0.10
+		vtc_cold_habitability = 0.10
+		vtc_toxic_habitability = 0.10
+		vtc_molten_habitability = 0.15
+		vtc_frozen_habitability = 0.15
+	}
+
+	potential = {
+		OR = {
+			NOT = { has_authority = auth_machine_intelligence }
+			has_civic = civic_machine_assimilator
+			has_civic = civic_machine_servitor
+		}		
+	}	
+
+	weight_modifier = {
+		modifier = {
+			factor = 0.30
+			NOR = {
+				research_leader = {
+					area = society
+					has_trait = "leader_trait_expertise_new_worlds"
+				}
+				research_leader = {
+					area = society
+					has_trait = "leader_trait_curator"
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			any_owned_planet = {
+				OR = {
+					is_planet_class = vtc_molten
+					is_planet_class = vtc_frozen
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_new_worlds"
+			}
+		}
+		modifier = {
+			factor = 2.5
+			any_owned_planet = {
+				OR = {
+					is_planet_class = vtc_molten
+					is_planet_class = vtc_frozen
+				}
+			}
+		}
+	}
+}
+

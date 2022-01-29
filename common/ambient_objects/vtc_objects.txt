@@ -1,0 +1,6 @@
+ambient_object = {
+	name = "vtc_time_object"
+	entity = "vtc_time_anomaly_entity"
+	selectable = no
+	show_name = no
+}

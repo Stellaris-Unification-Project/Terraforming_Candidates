@@ -1,0 +1,30 @@
+# compat code for any surveyed planet with TC modifier
+# Scope = Ship
+# From = Planet
+on_survey = {
+	events = {
+		vtc_check.2
+	}
+}
+
+on_game_start = {
+	events = {
+		vtc_check.22
+	}
+}
+
+# Planet has been terraformed
+# This = Planet
+# From = Terraformer
+on_terraforming_complete = {
+    events = {
+		vtc_check.3
+    }
+}
+
+on_pop_added = {
+	events = {
+		vtc_check.4
+	}
+}
+

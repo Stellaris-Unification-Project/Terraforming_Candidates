@@ -1,0 +1,414 @@
+## Possible Deposit Variables ##
+# resources, resource and amount
+# potential trigger (planet scope)
+# planet_modifier - applied to planet only when deposit blocker has been cleared
+# constant_modifier - applied to planet always
+# station = station class in orbit to gather
+
+@blocker_high = 10
+@blocker_low = 5
+
+vtc_active_volcano = {
+	time = 300
+	icon = d_active_volcano
+
+	is_for_colonizable = yes
+	category = deposit_cat_blockers	
+
+	resources = {
+		category = deposit_blockers
+		cost = {
+			energy = 1000
+		}
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_molten
+			is_planet_class = vtc_toxic
+		}
+	}
+
+	planet_modifier = { 
+		planet_max_districts_add = -2
+	}
+
+	use_weights_for_blocker_swap_types = yes
+	blocker_swap_types = {
+		vtc_geiser_fields
+		vtc_tempestous_mountain
+		vtc_veiny_cliffs
+		vtc_prosperous_mesa
+		vtc_ore_rich_caverns
+		vtc_rich_mountain
+		vtc_dust_caverns
+		vtc_fuming_fields
+	}
+
+	drop_weight = {
+		weight = @blocker_high
+		modifier = {
+			factor = 0.5
+			is_planet_class = vtc_toxic
+		}
+		modifier = {
+			factor = 0.5
+			planet_size < 12
+		}
+	}
+
+	prerequisites = { "tech_vtc_world_adaption" }
+}
+
+vtc_lava_flow = {
+	time = 200
+
+	is_for_colonizable = yes
+	category = deposit_cat_blockers	
+
+	resources = {
+		category = deposit_blockers
+		cost = {
+			energy = 700
+		}
+	}
+
+	potential = {
+		is_planet_class = vtc_molten
+	}
+
+	planet_modifier = { 
+		planet_max_districts_add = -1
+	}
+
+	use_weights_for_blocker_swap_types = yes
+	blocker_swap_types = {
+		vtc_geiser_fields
+		vtc_searing_desert
+		vtc_veiny_cliffs
+		vtc_mineral_fields
+		vtc_ore_rich_caverns
+		vtc_dust_desert
+		vtc_fuming_fields
+	}
+
+	drop_weight = {
+		weight = @blocker_high
+		modifier = {
+			factor = 0.5
+			planet_size < 12
+		}
+	}
+
+	prerequisites = { "tech_vtc_world_adaption" } # tech_vtc_lava_reprocessing
+}
+
+vtc_lava_lake = {
+	time = 250
+
+	is_for_colonizable = yes
+	category = deposit_cat_blockers	
+
+	resources = {
+		category = deposit_blockers
+		cost = {
+			energy = 800
+		}
+	}
+
+	potential = {
+		is_planet_class = vtc_molten
+	}
+
+	planet_modifier = { 
+		planet_max_districts_add = -1
+	}
+
+	use_weights_for_blocker_swap_types = yes
+	blocker_swap_types = {
+		vtc_geiser_fields
+		vtc_hot_springs
+		vtc_mineral_fields
+		vtc_ore_rich_caverns
+		vtc_dust_caverns
+	}
+
+	drop_weight = {
+		weight = @blocker_low
+		modifier = {
+			factor = 0.5
+			planet_size < 12
+		}
+	}
+
+	prerequisites = { "tech_vtc_world_adaption" } #tech_vtc_lava_reprocessing
+}
+
+vtc_gaseous_rift = {
+	time = 200
+	icon = d_gaseous_eruption
+
+	is_for_colonizable = yes
+	category = deposit_cat_blockers	
+	
+	resources = {
+		category = deposit_blockers
+		cost = {
+			energy = 500
+		}
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_toxic
+			is_planet_class = vtc_molten
+		}
+	}
+	
+	planet_modifier = {
+		planet_max_districts_add = -1
+	}
+
+	use_weights_for_blocker_swap_types = yes
+	blocker_swap_types = {
+		vtc_geiser_fields
+		vtc_hot_springs
+		vtc_ore_rich_caverns
+		vtc_veiny_cliffs
+		vtc_bubbling_mud
+		vtc_fuming_fields
+		vtc_dust_caverns
+	}
+
+	drop_weight = {
+		weight = @blocker_low
+		modifier = {
+			factor = 3
+			is_planet_class = vtc_toxic
+		}	
+	}
+
+	prerequisites = { "tech_vtc_world_adaption" } #{ "tech_vtc_agressive_chemicals_removal" }	
+}
+
+vtc_acid_lakes = {	
+	time = 200
+	
+	is_for_colonizable = yes
+	category = deposit_cat_blockers	
+	
+	resources = {
+		category = deposit_blockers
+		cost = {
+			energy = 500
+		}
+	}
+	
+	potential = {
+		is_planet_class = vtc_toxic
+	}
+	
+	planet_modifier = { 
+		planet_max_districts_add = -1
+	}
+	
+	use_weights_for_blocker_swap_types = yes
+	blocker_swap_types = {
+		vtc_geiser_fields
+		vtc_hot_springs
+		vtc_ore_rich_caverns
+		vtc_bubbling_mud
+		vtc_fuming_fields
+		vtc_mineral_fields
+		vtc_searing_desert
+	}
+
+	drop_weight = {
+		weight = @blocker_high
+		modifier = {
+			factor = 2
+			is_planet_class = vtc_toxic
+		}
+	}
+	
+	prerequisites = { "tech_vtc_world_adaption" } #{ "tech_vtc_agressive_chemicals_removal" }
+}
+
+vtc_permafrost_holes = {
+	time = 200
+	
+	is_for_colonizable = yes
+	category = deposit_cat_blockers	
+
+	resources = {
+		category = deposit_blockers
+		cost = {
+			energy = 500
+		}
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_cold
+		}
+	}
+	
+	planet_modifier = { 
+		planet_max_districts_add = -1
+	}
+	
+	use_weights_for_blocker_swap_types = yes
+	blocker_swap_types = {
+		vtc_frozen_plateaus
+		vtc_frozen_gas_lake
+		vtc_ore_rich_caverns
+		vtc_dust_caverns
+		vtc_crystalline_caverns
+	}
+
+	drop_weight = {
+		weight = @blocker_high
+		modifier = {
+			factor = 2
+				is_planet_class = vtc_cold
+		}	
+	}
+	
+	prerequisites = { "tech_vtc_world_adaption" } #{ "tech_soil_stabilizing" }
+}
+
+
+vtc_quicksand_basin = {	
+	time = 200
+
+	icon = d_quicksand_basin
+	is_for_colonizable = yes
+	category = deposit_cat_blockers	
+	
+	resources = {
+		category = deposit_blockers
+		cost = {
+			energy = 500
+		}
+	}
+	
+	potential = {
+		OR = {
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_cold
+		}
+	}
+	
+	planet_modifier = { 
+		planet_max_districts_add = -1
+	}
+	
+	use_weights_for_blocker_swap_types = yes
+	blocker_swap_types = {
+		vtc_mineral_fields
+		vtc_dust_desert
+		vtc_searing_desert
+		vtc_fuming_fields
+	}
+
+	drop_weight = {
+		weight = @blocker_high
+		modifier = {
+			factor = 2
+			is_planet_class = vtc_candidate
+		}		
+	}
+	
+	prerequisites = { "tech_vtc_world_adaption" } #{ "tech_soil_stabilizing" }
+}
+
+vtc_massive_glacier = {	
+	time = 300
+	
+	icon = d_massive_glacier
+	is_for_colonizable = yes
+	category = deposit_cat_blockers	
+	
+	resources = {
+		category = deposit_blockers
+		cost = {
+			energy = 700
+		}
+	}
+	
+	potential = {
+		OR = {
+			is_planet_class = vtc_frozen
+			is_planet_class = vtc_cold
+		}	
+	}
+	
+	planet_modifier = { 
+		planet_max_districts_add = -1
+	}
+	
+	use_weights_for_blocker_swap_types = yes
+	blocker_swap_types = {
+		vtc_frozen_plateaus
+		vtc_veiny_cliffs
+		vtc_ore_rich_caverns
+		vtc_frozen_gas_lake
+		vtc_mineral_fields
+	}
+
+	drop_weight = {
+		weight = @blocker_high
+		modifier = {
+			factor = 2
+			is_planet_class = vtc_frozen
+		}			
+	}
+	
+	prerequisites = { "tech_vtc_world_adaption" } #{ "tech_vtc_glacier" }
+}
+
+vtc_ice_capes = {	
+	time = 200
+	
+	is_for_colonizable = yes
+	category = deposit_cat_blockers	
+	
+	resources = {
+		category = deposit_blockers
+		cost = {
+			energy = 700
+		}
+	}
+	
+	potential = {
+		OR = {
+			is_planet_class = vtc_frozen
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_cold
+		}	
+	}
+	
+	planet_modifier = { 
+		planet_max_districts_add = -1
+	}
+	
+	use_weights_for_blocker_swap_types = yes
+	blocker_swap_types = {
+		vtc_veiny_cliffs
+		vtc_ore_rich_caverns
+		vtc_rich_mountain
+		vtc_frozen_gas_lake
+		vtc_prosperous_mesa
+	}
+
+	drop_weight = {
+		weight = @blocker_high
+		modifier = {
+			factor = 2
+			is_planet_class = vtc_frozen
+		}			
+	}
+	
+	prerequisites = { "tech_vtc_world_adaption" } #{ "tech_vtc_glacier" }
+}

@@ -1,0 +1,182 @@
+vtc_add_random_deposit = {
+	if = {
+		limit = { has_global_flag = has_guillis_planet_modifiers_mod }
+		# TODO: include GPM deposits
+	}
+	add_random_non_blocker_deposit = yes
+}
+
+#scope planet
+vtc_add_random_blocker = {
+	random_list = {
+		10 = { add_deposit = d_crater }
+		10 = { add_deposit = d_mountain_range }
+		5 = {
+			modifier = {
+				factor = 0
+				NOR = {
+					is_planet_class = vtc_cold
+					is_planet_class = vtc_frozen
+				}
+			}
+			modifier = {
+				factor = 2
+				is_planet_class = vtc_frozen
+			}
+			add_deposit = vtc_ice_capes
+		}
+		5 = {
+			modifier = {
+				factor = 0
+				NOT = { is_planet_class = vtc_toxic }
+			}
+			add_deposit = vtc_gaseous_rift
+		}
+		5 = {
+			modifier = {
+				factor = 1.5
+				is_planet_class = vtc_toxic
+			}
+			modifier = {
+				factor = 4
+				is_planet_class = vtc_molten
+			}
+			add_deposit = vtc_lava_flow
+		}
+		10 = {
+			modifier = {
+				factor = 0					
+				NOR = {
+					is_planet_class = vtc_candidate
+					is_planet_class = vtc_cold
+				}
+			}
+			modifier = {
+				factor = 2
+				is_planet_class = vtc_candidate
+			}
+			add_deposit = vtc_quicksand_basin
+		}
+	}
+}
+
+vtc_fix_deposits = {
+	reroll_deposits = yes
+	vtc_fix_gpm_deposits = yes
+	every_deposit = {
+		limit = {
+			OR = {
+				is_deposit_type = d_alien_pets_deposit
+				is_deposit_type = d_dangerous_wildlife_blocker
+				is_deposit_type = d_dense_jungle
+				is_deposit_type = d_bountiful_plains
+				is_deposit_type = d_toxic_kelp
+			}
+		}
+		remove_deposit = yes
+		prev = {
+			vtc_add_random_blocker = yes
+		}
+	}
+}
+
+# called from terraform links
+# scope: planet
+vtc_reroll_food = {
+	if = {
+		limit = {
+			is_colonizable = yes
+			NOR = {
+				has_deposit = d_lichen_fields
+				has_deposit = d_bountiful_plains
+				has_deposit = d_rugged_woods
+				has_deposit = d_green_hills
+				has_deposit = d_forgiving_tundra
+				has_deposit = d_boggy_fens
+				has_deposit = d_nutritious_mudland
+				has_deposit = d_fungal_caves
+				has_deposit = d_lush_jungle
+				has_deposit = d_fertile_lands
+				has_deposit = d_great_river
+				has_deposit = d_black_soil
+				has_deposit = d_teeming_reef
+				has_deposit = d_marvelous_oasis
+				has_deposit = d_tropical_island
+				has_deposit = d_fungal_forest
+				has_deposit = d_rushing_waterfalls
+			}
+		}
+		vtc_add_random_deposit = yes
+		random = { chance = 50 vtc_add_random_deposit = yes }
+		random = { chance = 20 vtc_add_random_deposit = yes }
+	}
+}
+
+vtc_candidate_planet = {
+	switch = {
+		trigger = is_planet_class
+		pc_barren_cold = {
+			change_pc = vtc_cold
+			vtc_fix_deposits = yes
+		}
+		pc_barren = {
+			change_pc = vtc_candidate
+			vtc_fix_deposits = yes
+		}
+		pc_toxic = {
+			change_pc = vtc_toxic
+			vtc_fix_deposits = yes
+		}
+		pc_molten = {
+			change_pc = vtc_molten
+			vtc_fix_deposits = yes
+		}
+		pc_frozen = {
+			change_pc = vtc_frozen
+			vtc_fix_deposits = yes
+		}
+	}
+
+	remove_modifier = candidate_planet
+	remove_modifier = vtc_volcano_planet
+	remove_modifier = vtc_ice_planet
+	if = {
+		limit = {
+			OR = {
+				is_planet_class = vtc_cold
+				is_planet_class = vtc_candidate
+				is_planet_class = vtc_toxic
+			}
+		}
+		add_modifier = {
+			modifier = "candidate_planet"
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			is_planet_class = vtc_molten
+		}
+		add_modifier = {
+			modifier = "vtc_volcano_planet"
+			days = -1
+		}
+	}
+	if = {
+		limit = {
+			is_planet_class = vtc_frozen
+		}
+		add_modifier = {
+			modifier = "vtc_ice_planet"
+			days = -1
+		}
+	}
+}
+
+vtc_clear_modifiers = {
+	remove_modifier = apsr_terraforming_candidate
+	remove_modifier = terraforming_candidate_precursor
+	remove_modifier = terraforming_candidate
+	remove_modifier = candidate_planet
+	vtc_reroll_food = yes
+}

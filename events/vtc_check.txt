@@ -1,0 +1,361 @@
+namespace = vtc_check
+
+planet_event = {
+	id = vtc_check.1
+	hide_window = yes
+	
+	is_triggered_only = yes
+
+	trigger = {
+		is_colony = no
+		is_colonizable = no
+		is_under_colonization = no
+		vtc_has_modifier = yes
+		NOR = {
+			is_planet_class = vtc_molten
+			is_planet_class = vtc_toxic
+			is_planet_class = vtc_frozen
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_cold
+		}
+	}
+
+	immediate = {
+		if = {
+			# never makes candidates from types below:
+			limit = {
+				OR = {
+					is_planet_class = pc_infested
+					is_planet_class = pc_shielded
+					is_planet_class = pc_ai
+					is_planet_class = pc_shrouded
+					is_planet_class = pc_broken
+					is_planet_class = pc_egg_cracked
+					is_planet_class = pc_shattered
+				}
+			}
+			# remove TC modifiers from such worlds
+			vtc_clear_modifiers = yes
+			log = "Fixed wrong TC at [This.GetName] in [this.solar_system.GetName]"
+		}
+		else = {
+			log = "Found TC at [This.GetName] in [this.solar_system.GetName]"
+
+			# we have found existent TC, this is result of third-side mods most likely,
+			# do sanity checks first
+			if = {
+				limit = {
+					planet_size < 10
+				}
+				change_planet_size = 3
+				# log = "VTC: [This.GetName] size is less than 9, add 3 more tiles"
+			}
+			if = {
+				limit = {
+					planet_size > 25
+				}
+				# log = "VTC: [This.GetName] size is more than 25, reduce it to 25"
+				set_planet_size = 25
+			}
+
+			# handle known third-side classes
+			switch = {
+				trigger = is_planet_class
+				pc_hothouse = {
+					change_pc = pc_toxic
+				}
+			}
+
+			# handle unknown planet classes by distance to star
+			if = {
+				limit = {
+					NOR = {
+						is_planet_class = pc_molten
+						is_planet_class = pc_toxic
+						is_planet_class = pc_frozen
+						is_planet_class = pc_barren
+						is_planet_class = pc_barren_cold
+					}
+				}
+				log = "VTC: [This.GetName] of unknown planet type"
+				if = {
+					limit = {
+						solar_system = {
+						any_system_planet = {
+							is_star = yes
+							distance = {
+								source = prevprev
+								min_distance > 0
+								max_distance <= 30
+								same_solar_system = yes
+							}
+						}
+						}
+					}
+					change_pc = pc_molten
+				}
+				else_if = {
+					limit = {
+						solar_system = {
+						any_system_planet = {
+							is_star = yes
+							distance = {
+								source = prevprev
+								min_distance > 30
+								max_distance <= 50
+								same_solar_system = yes
+							}
+						}
+						}
+					}
+					random_list = {
+						10 = {
+							change_pc = pc_molten
+						}
+						50 = {
+							change_pc = pc_toxic
+						}
+						30 = {
+							change_pc = pc_barren
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						solar_system = {
+						any_system_planet = {
+							is_star = yes
+							distance = {
+								source = prevprev
+								min_distance > 50
+								max_distance <= 70
+								same_solar_system = yes
+							}
+						}
+						}
+					}
+					random_list = {
+						10 = {
+							change_pc = pc_toxic
+						}
+						50 = {
+							change_pc = pc_barren
+						}
+						30 = {
+							change_pc = pc_barren_cold
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						solar_system = {
+						any_system_planet = {
+							is_star = yes
+							distance = {
+								source = prevprev
+								min_distance > 70
+								same_solar_system = yes
+							}
+						}
+						}
+					}
+					random_list = {
+						10 = {
+							change_pc = pc_barren
+						}
+						50 = {
+							change_pc = pc_barren_cold
+						}
+						30 = {
+							change_pc = pc_frozen
+						}
+					}
+				}
+			}
+			# handle still unknown planet classes
+			if = {
+				limit = {
+					NOR = {
+						is_planet_class = pc_molten
+						is_planet_class = pc_toxic
+						is_planet_class = pc_frozen
+						is_planet_class = pc_barren
+						is_planet_class = pc_barren_cold
+					}
+				}
+				log = "VTC: [This.GetName] still of unknown planet type"
+				random_list = {
+					10 = {
+						change_pc = pc_molten
+					}
+					50 = {
+						change_pc = pc_barren
+					}
+					30 = {
+						change_pc = pc_toxic
+					}
+				}
+			}
+			vtc_candidate_planet = yes
+			vtc_fix_gpm_planet = yes
+		}
+	}
+}
+
+# event to convert all surveyed TC
+# planet_event above doesn't work without is_triggered_only anymore,
+# looks like it is called for colonized planets only now,
+# so use country_event instead
+country_event = {
+	id = vtc_check.12
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		#is_ai = no
+		any_system = {
+			any_system_planet = {
+				is_colonizable = no
+				is_under_colonization = no
+				is_colony = no
+				vtc_has_modifier = yes
+				NOR = {
+					is_planet_class = vtc_molten
+					is_planet_class = vtc_toxic
+					is_planet_class = vtc_frozen
+					is_planet_class = vtc_candidate
+					is_planet_class = vtc_cold
+				}
+				any_country = {
+					OR = {
+						is_country_type = default
+						is_ai = no
+					}
+					prev = { is_surveyed = { who = prev status = yes } }
+				}
+			}
+		}
+	}
+
+	immediate = {
+		every_system ={
+			limit = {
+				any_system_planet = {
+					is_colonizable = no
+					is_under_colonization = no
+					is_colony = no
+					vtc_has_modifier = yes
+				}
+			}
+			every_system_planet = {
+				limit = {
+					is_colonizable = no
+					is_under_colonization = no
+					is_colony = no
+					vtc_has_modifier = yes
+					any_country = {
+						OR = {
+							is_country_type = default
+							is_ai = no
+						}
+						prev = { is_surveyed = { who = prev status = yes } }
+					}
+				}
+				planet_event = { id = vtc_check.1 }
+			}
+		}
+	}
+}
+
+# invoke new check for TC each time any science ship finish survey
+ship_event = {
+	id = vtc_check.2
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		owner = { country_event = { id = vtc_check.12 } }
+	}
+}
+
+# on game start upgrade all existent TCs
+event = {
+	id = vtc_check.22
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		every_system = {
+			limit = {
+				any_system_planet = {
+					is_colonizable = no
+					vtc_has_modifier = yes
+					any_country = {
+						OR = {
+							is_country_type = default
+							is_ai = no
+						}
+						prev = { is_surveyed = { who = prev status = yes } }
+					}
+				}
+			}
+			every_system_planet = {
+				limit = {
+					is_colonizable = no
+					vtc_has_modifier = yes
+					any_country = {
+						OR = {
+							is_country_type = default
+							is_ai = no
+						}
+						prev = { is_surveyed = { who = prev status = yes } }
+					}
+				}
+				planet_event = { id = vtc_check.1 }
+			}
+		}
+	}
+}
+
+# Terraforming event
+# this = planet
+# from = country
+planet_event = {
+	id = vtc_check.3
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_modifier = candidate_planet
+	}
+
+	immediate = {
+		remove_modifier = candidate_planet
+	}
+}
+
+# special check for Nu-Baol planet change to gaia 
+pop_event = {
+	id = vtc_check.4
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		exists = event_target:nu_baol_species
+		is_same_species = event_target:nu_baol_species
+		from = {
+			is_planet_class = pc_gaia
+			is_colony = yes
+			vtc_has_modifier = yes
+		}
+	}
+
+	immediate = {
+		from = {
+			log = "Found Nu-Baol terraformed planet at [This.GetName] in [this.solar_system.GetName]"
+			vtc_clear_modifiers = yes
+			remove_modifier = vtc_ice_planet
+			remove_modifier = vtc_volcano_planet
+		}
+	}
+}

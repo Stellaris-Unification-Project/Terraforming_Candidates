@@ -1,0 +1,48 @@
+# --- replacement for Guilli's modifiers ---
+terraforming_candidate_precursor = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_from_space.dds"
+	icon_frame = 1
+	important = yes
+}
+
+Precursor_Energy_Grid = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unknown.dds"
+	icon_frame = 1
+}
+
+Precursor_Planetary_Shield = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unknown.dds"
+	icon_frame = 1
+}
+
+Precursor_Shipyards = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unknown.dds"
+	icon_frame = 1
+}
+
+Android_Pleasure_Palace = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unknown.dds"
+	icon_frame = 1
+}
+
+Temple_of_the_Ancient_One = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unknown.dds"
+	icon_frame = 1
+}
+
+Ruined_Battlefield = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unknown.dds"
+	icon_frame = 2
+}
+
+Spaceship_Graveyard = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unknown.dds"
+	icon_frame = 1
+}
+
+# --- APSR terraforming candidate replacement
+apsr_terraforming_candidate = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_from_space.dds"
+	icon_frame = 1
+	important = yes
+}

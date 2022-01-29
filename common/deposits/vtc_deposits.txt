@@ -1,0 +1,883 @@
+## Possible Deposit Variables ##
+# resources, resource and amount
+# potential trigger (planet scope)
+# blocked_modifier - applied to planet
+# constant_modifier - applied to planet always
+# station = station class in orbit to gather
+# blocker_swap_types = {}
+# all_blocker_swap_types = yes/no
+# use_weights_for_blocker_swap_types = yes/no
+# terraforming_swap_types = { }
+# should_swap_deposit_on_terraforming = yes/no
+# all_terraforming_swap_types = yes/no
+# use_weights_for_terraforming_swap_types = yes/no
+
+@high = 16
+@med = 8
+@low = 4
+
+@high_rare = 0.5
+@mid_rare = 0.25
+@low_rare = 0.1
+
+@planet_type_bonus = 1.5
+
+#vtc_extinct_volcano = {}
+#vtc_mud_volcano
+#vtc_old_caldera
+#vtc_lava_fields
+#vtc_ash_plateau
+#vtc_volcanic_caves
+#vtc_basalt_valleys
+#vtc_basalt_columns
+
+###############
+#### ENERGY ###
+###############
+
+vtc_frozen_plateaus = {
+	is_for_colonizable = yes
+	use_for_min_max_adjustments = yes
+
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_hot_springs
+		d_searing_desert
+		d_arid_highlands
+		d_forgiving_tundra
+		d_lichen_fields
+		d_bountiful_plains
+		d_fertile_lands
+		d_black_soil
+	}
+
+	category = deposit_cat_energy
+	
+	planet_modifier = {
+		district_generator_max = 2
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_frozen
+			is_planet_class = vtc_cold
+		}
+	}
+
+	drop_weight = {
+		weight = @low
+		modifier = {
+			factor = @planet_type_bonus
+			is_planet_class = vtc_frozen
+		}
+	}
+}
+
+vtc_searing_desert = {
+	icon = d_arid_highlands
+	is_for_colonizable = yes
+	use_for_min_max_adjustments = yes
+	
+	category = deposit_cat_energy
+	
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_searing_desert
+		d_arid_highlands
+		d_forgiving_tundra
+		d_lichen_fields
+		d_bountiful_plains
+		d_fertile_lands
+		d_black_soil
+	}
+	
+	planet_modifier = {
+		district_generator_max = 2
+	}
+
+	potential = {	
+		OR = {
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_cold
+		}
+	}
+
+	drop_weight = {
+		weight = @med
+		modifier = {
+			factor = @planet_type_bonus
+			is_planet_class = vtc_candidate
+		}		
+	}
+}
+
+vtc_hot_springs = {
+	icon = d_hot_springs
+	is_for_colonizable = yes
+	use_for_min_max_adjustments = yes
+
+	category = deposit_cat_energy
+	
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_arid_highlands
+		d_hot_springs
+		d_fuming_bog
+		d_bubbling_swamp
+		d_marvelous_oasis
+		d_nutritious_mudland
+		d_boggy_fens
+		d_great_river
+	}	
+
+	planet_modifier = {
+		district_generator_max = 1
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_toxic
+			is_planet_class = vtc_molten
+			is_planet_class = vtc_candidate
+		}	
+	}
+
+	drop_weight = {
+		weight = @med	
+		modifier = {
+			factor = @planet_type_bonus
+			is_planet_class = vtc_toxic
+		}		
+	}
+}
+
+vtc_geiser_fields = {
+	icon = d_geothermal_vent
+	is_for_colonizable = yes
+	use_for_min_max_adjustments = yes
+
+	category = deposit_cat_energy
+
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_geothermal_vent
+		d_underwater_vent
+		d_hot_springs
+		d_frozen_gas_lake
+		d_green_hills
+		d_boggy_fens
+		d_nutritious_mudland
+		d_fungal_caves
+		d_fertile_lands
+	}
+
+	planet_modifier = {
+		district_generator_max = 3
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_cold
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_molten
+			is_planet_class = vtc_toxic
+		}
+	}
+
+	drop_weight = {
+		weight = @low
+		modifier = {
+			factor = @planet_type_bonus
+			OR = {
+				is_planet_class = vtc_toxic
+				is_planet_class = vtc_molten
+			}
+		}
+	}
+}
+
+vtc_frozen_gas_lake = {
+	icon = d_frozen_gas_lake
+	is_for_colonizable = yes
+	use_for_min_max_adjustments = yes
+
+	category = deposit_cat_energy
+
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_geothermal_vent
+		d_underwater_vent
+		d_hot_springs
+		d_frozen_gas_lake
+		d_boggy_fens
+		d_nutritious_mudland
+		d_fungal_caves
+		d_fertile_lands
+	}
+
+	planet_modifier = {
+		district_generator_max = 2
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_frozen
+			is_planet_class = vtc_cold
+			is_planet_class = vtc_candidate
+		}
+	}
+
+	drop_weight = {
+		weight = @med
+		modifier = {
+			factor = @planet_type_bonus
+			NOT = { is_planet_class = vtc_candidate }
+		}		
+	}
+}
+
+vtc_tempestous_mountain = {
+	icon = d_tempestous_mountain
+	is_for_colonizable = yes
+	use_for_min_max_adjustments = yes
+
+	category = deposit_cat_energy
+
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_geothermal_vent
+		d_tempestous_mountain
+		d_veiny_cliffs
+		d_prosperous_mesa
+		d_ore_rich_caverns
+		d_rich_mountain
+		d_rushing_waterfalls
+		d_green_hills
+		d_fungal_caves
+		d_teeming_reef
+		d_tropical_island
+	}
+
+	planet_modifier = {
+		district_generator_max = 2
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_molten
+			is_planet_class = vtc_toxic
+		}
+	}
+
+	drop_weight = {
+		weight = @low
+		modifier = {
+			factor = @planet_type_bonus
+			is_planet_class = vtc_molten
+		}		
+	}
+}
+
+###################
+#### MINERALS #####
+###################
+vtc_veiny_cliffs = {
+	icon = d_veiny_cliffs
+	is_for_colonizable = yes
+	use_for_min_max_adjustments = yes
+
+	category = deposit_cat_minerals
+
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_mineral_fields
+		d_veiny_cliffs
+		d_prosperous_mesa
+		d_ore_rich_caverns
+		d_teeming_reef
+		d_green_hills
+	}
+
+	planet_modifier = {
+		district_mining_max = 1
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_molten
+			is_planet_class = vtc_toxic
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_cold
+		}
+	}
+
+	drop_weight = {
+		weight = @high
+		modifier = {
+			factor = @planet_type_bonus
+			is_planet_class = vtc_candidate
+		}
+	}
+}
+
+vtc_mineral_fields = {
+	icon = d_mineral_fields
+	is_for_colonizable = yes
+	use_for_min_max_adjustments = yes
+
+	category = deposit_cat_minerals
+
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_veiny_cliffs
+		d_mineral_fields
+		d_ore_rich_caverns
+		d_marvelous_oasis
+	}
+
+	planet_modifier = {
+		district_mining_max = 1
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_molten
+			is_planet_class = vtc_toxic
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_cold
+		}
+	}
+
+	drop_weight = {
+		weight = @high	
+		modifier = {
+			factor = @planet_type_bonus
+			NOT = { is_planet_class = vtc_toxic }
+		}			
+	}
+}
+
+vtc_prosperous_mesa = {
+	icon = d_prosperous_mesa
+	is_for_colonizable = yes
+	use_for_min_max_adjustments = yes
+
+	category = deposit_cat_minerals
+
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_veiny_cliffs
+		d_prosperous_mesa
+		d_ore_rich_caverns
+		d_rich_mountain
+		d_tempestous_mountain
+		d_teeming_reef
+	}
+
+	planet_modifier = {
+		district_mining_max = 2
+	}	
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_molten
+			is_planet_class = vtc_toxic
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_cold
+			is_planet_class = vtc_frozen
+		}
+	}
+
+	drop_weight = {
+		weight = @med
+		modifier = {
+			factor = @planet_type_bonus
+			NOT = { is_planet_class = vtc_frozen }
+		}			
+	}
+}
+
+vtc_ore_rich_caverns = {
+	icon = d_ore_rich_caverns
+	is_for_colonizable = yes
+	use_for_min_max_adjustments = yes
+	
+	category = deposit_cat_minerals 
+	
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_mineral_fields
+		d_veiny_cliffs
+		d_prosperous_mesa
+		d_ore_rich_caverns
+		d_fungal_caves
+	}
+	
+	planet_modifier = {
+		district_mining_max = 2
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_molten
+			is_planet_class = vtc_toxic
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_cold
+			is_planet_class = vtc_frozen
+		}
+	}
+	
+	drop_weight = {
+		weight = @med
+		modifier = {
+			factor = @planet_type_bonus
+			NOT = { is_planet_class = vtc_molten }
+		}	
+	}
+} 
+ 
+vtc_rich_mountain = {
+	icon = d_rich_mountain
+	is_for_colonizable = yes
+	use_for_min_max_adjustments = yes
+	
+	category = deposit_cat_minerals
+
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_veiny_cliffs
+		d_prosperous_mesa
+		d_ore_rich_caverns
+		d_tempestous_mountain
+		d_teeming_reef
+	}
+
+	planet_modifier = {
+		district_mining_max = 3
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_molten
+			is_planet_class = vtc_toxic
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_cold
+			is_planet_class = vtc_frozen
+		}
+	}
+
+	drop_weight = {
+		weight = @low
+		modifier = {
+			factor = @planet_type_bonus
+			NOT = { is_planet_class = vtc_candidate }
+		}		
+	}
+}
+
+#### FOOD
+vtc_lichen_fields = {
+	icon = d_lichen_fields
+	is_for_colonizable = yes
+	use_for_min_max_adjustments = yes
+
+	category = deposit_cat_food
+
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_bountiful_plains
+		d_rugged_woods
+		d_green_hills
+		d_forgiving_tundra
+		d_boggy_fens
+		d_nutritious_mudland
+		d_natural_farmland # gaia
+		d_black_soil
+	}	
+
+	planet_modifier = { 
+		district_farming_max = 1
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_toxic
+		}	
+	}
+	
+	drop_weight = {
+		weight = @high_rare
+		modifier = {
+			factor = 0.5
+			is_planet_class = vtc_toxic
+		}
+		modifier = {
+			factor = @planet_type_bonus
+			is_planet_class = vtc_candidate
+		}		
+	}
+}
+
+vtc_exotic_biome = {
+	icon = d_nutritious_mudland
+	is_for_colonizable = yes
+	use_for_min_max_adjustments = yes
+
+	category = deposit_cat_food
+
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_lichen_fields
+		d_bountiful_plains
+		d_rugged_woods
+		d_green_hills
+		d_forgiving_tundra
+		d_boggy_fens
+		d_natural_farmland # gaia
+		d_marvelous_oasis
+	}	
+
+	planet_modifier = {
+		district_farming_max = 2
+	}
+
+	potential = {
+		is_planet_class = vtc_toxic
+	}
+
+	drop_weight = {
+		weight = @high_rare
+	}
+}
+
+vtc_fungal_caves = {
+	icon = d_fungal_caves
+	is_for_colonizable = yes
+	use_for_min_max_adjustments = yes
+	
+	category = deposit_cat_food
+	
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_lush_jungle
+		d_fertile_lands
+		d_great_river
+		d_fungal_forest
+	}	
+	
+	planet_modifier = {
+		planet_jobs_society_research_produces_mult = 0.1
+		planet_jobs_food_produces_mult = 0.1
+		planet_max_districts_add = 1
+		district_farming_max = 2
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_toxic
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_cold
+		}	
+	}
+	
+	drop_weight = {
+		weight = @low
+		modifier = {
+			factor = 0.5
+			is_planet_class = vtc_cold
+		}
+		modifier = {
+			factor = @planet_type_bonus
+			is_planet_class = vtc_toxic
+		}		
+	}
+}
+
+vtc_subglacial_farms = {
+	icon = d_teeming_reef
+	is_for_colonizable = yes
+	use_for_min_max_adjustments = yes
+
+	category = deposit_cat_food
+
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_teeming_reef
+		d_marvelous_oasis
+		d_tropical_island
+	}	
+
+	planet_modifier = { 
+		planet_jobs_society_research_produces_mult = 0.1
+		planet_jobs_food_produces_mult = 0.1
+		planet_max_districts_add = 1
+		district_farming_max = 3
+	}
+
+	potential = {
+		is_planet_class = vtc_frozen
+	}
+
+	drop_weight = {
+		weight = @high_rare
+		modifier = {
+			factor = @planet_type_bonus
+			is_planet_class = vtc_frozen
+		}		
+	}
+}
+
+# SPECIAL
+vtc_dust_caverns = {
+	icon = d_dust_caverns
+	is_for_colonizable = yes
+	category = deposit_cat_rare
+
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_dust_desert
+		d_dust_caverns
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_molten
+			is_planet_class = vtc_toxic
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_cold
+			is_planet_class = vtc_frozen
+		}
+	}
+	
+	planet_modifier = { 
+		building_mote_harvesters_max = 1
+	}
+	
+	drop_weight = {
+		weight = @high_rare
+		modifier = {
+			factor = @planet_type_bonus
+			is_planet_class = vtc_molten
+		}			
+		modifier = {
+			factor = 2
+			is_planet_class = vtc_toxic
+		}		
+	}
+}
+
+vtc_dust_desert = {
+	icon = d_dust_desert
+	is_for_colonizable = yes
+	category = deposit_cat_rare
+
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_dust_desert
+		d_dust_caverns
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_molten
+			is_planet_class = vtc_toxic
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_cold
+			is_planet_class = vtc_frozen
+		}
+	}
+	
+	planet_modifier = { 
+		building_mote_harvesters_max = 2
+	}
+	
+	drop_weight = {
+		weight = @high_rare
+		modifier = {
+			factor = @planet_type_bonus
+			is_planet_class = vtc_candidate
+		}			
+		modifier = {
+			factor = 2
+			is_planet_class = vtc_molten
+		}		
+	}
+}
+
+
+####################
+#####   GASES  #####
+####################
+
+vtc_bubbling_mud = {
+	icon = d_bubbling_swamp
+	is_for_colonizable = yes
+	category = deposit_cat_rare
+
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_bubbling_swamp
+		d_fuming_bog
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_molten
+			is_planet_class = vtc_toxic
+			is_planet_class = vtc_candidate
+		}
+	}
+
+	planet_modifier = { 
+		building_gas_extractors_max = 2
+	}
+	
+	drop_weight = {
+		weight = @high_rare
+		modifier = {
+			factor = @planet_type_bonus
+			is_planet_class = vtc_molten
+		}			
+		modifier = {
+			factor = 2
+			is_planet_class = vtc_toxic
+		}		
+	}
+}
+
+vtc_fuming_fields = {
+	icon = d_fuming_bog
+	is_for_colonizable = yes
+	category = deposit_cat_rare
+
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_bubbling_swamp
+		d_fuming_bog
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_toxic
+			is_planet_class = vtc_cold
+			is_planet_class = vtc_candidate
+		}
+	}
+
+	planet_modifier = { 
+		building_gas_extractors_max = 2
+	}
+	
+	drop_weight = {
+		weight = @low_rare	
+		modifier = {
+			factor = @planet_type_bonus
+			is_planet_class = vtc_cold
+		}			
+		modifier = {
+			factor = 2
+			is_planet_class = vtc_toxic
+		}	
+	}
+}
+
+####################
+##### CRYSTALS #####
+####################
+
+vtc_crystalline_caverns = {
+	icon = d_crystalline_caverns
+	is_for_colonizable = yes
+	category = deposit_cat_rare
+	
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_crystalline_caverns
+		d_crystal_reef
+		d_crystal_forest
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_molten
+			is_planet_class = vtc_toxic
+			is_planet_class = vtc_candidate
+			is_planet_class = vtc_cold
+			is_planet_class = vtc_frozen
+		}
+	}
+
+	planet_modifier = { 
+		building_crystal_mines_max = 2
+	}
+	
+	drop_weight = {
+		weight = @high_rare
+		modifier = {
+			factor = @planet_type_bonus
+			is_planet_class = vtc_cold
+		}			
+		modifier = {
+			factor = 2
+			is_planet_class = vtc_frozen
+		}		
+	}
+}
+
+vtc_crystal_forest = {
+	icon = d_crystal_forest
+	is_for_colonizable = yes
+	category = deposit_cat_rare
+	
+	use_weights_for_terraforming_swap_types = yes
+	should_swap_deposit_on_terraforming = yes
+	terraforming_swap_types = {
+		d_crystal_reef
+		d_crystal_forest
+	}	
+	
+	planet_modifier = { 
+		building_crystal_mines_max = 2
+	}
+
+	potential = {
+		OR = {
+			is_planet_class = vtc_cold
+			is_planet_class = vtc_frozen
+		}
+	}
+	
+	drop_weight = {
+		weight = @low_rare
+		modifier = {
+			factor = @planet_type_bonus
+			is_planet_class = vtc_cold
+		}			
+		modifier = {
+			factor = 2
+			is_planet_class = vtc_frozen
+		}		
+	}
+}
+

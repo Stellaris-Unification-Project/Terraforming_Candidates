@@ -1,0 +1,25 @@
+[h1]Update[/h1]
+- Updated for 3.0.1. Should still be compatible with 2.2.+
+
+[h1] What this mod does [/h1]
+
+Mod adds more terraforming candidates - toxic planet, cold barren, molten and frozen can be candidates too. There are different stories for them and different terraforming links:
+
+- [b]Barren[/b]: this planet becomes 'abandoned world' with original story about life was there in past. This world can be terraformed to the arid/deset/savannah
+- [b]Cold Barren[/b]: becomes 'cold world' with story about its atmosphere is not enough, but greenhouse effect can make it habitable after terraforming. Can be terraformed to the tundra/arctic/alpine
+- [b]Toxic[/b]: becomes 'primordial world' where life is being formed right now. Can be terraformed into continental/ocean/tropical
+- [b]Molten[/b]: becomes 'volcanic' world which can be terraformed to desert world only at first step.
+- [b]Frozen[/b]: becomes 'snowball' world with ice carapace and ocean beneath. Can be changed to arctic world as first step.
+
+Note, each candidate type can be terraformed only to some vanilla types with close climate, but the terraforming cost is a half of 'terraforming candidate' cost in vanilla. So basically the first terraforming step is easier with this mod but the second step is needed if you need planet type with different climate.
+
+[h1] Improved Terraforming Candidates [/h1]
+
+Mod enhances terraforming candidates visuals and mechanics. Now all candidates have 'colonizable' status and are visible on a map and in expansion planner. Such candidate planets have 'terraforming candidate' modifier and 'candidate_planet' modifier which are removed when terraforming is complete. The latest one is a new modifier and adds few negative effects to the candidate planets to better represent their harsh environments.
+
+This has also interesting side-effect and opportunity to colonize these candidates despite their harshness, e.g. with robots. The Volcano and Snowball can be colonized only with proper technology though.
+
+[h1]Compatibility[/h1]
+
+This mod should have good compatibility, it doesn't change vanilla files and also should handle terraforming candidates made by other mods
+There is also 2.1 version of the mod: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1589066271]2.1 version[/url]

@@ -1,0 +1,741 @@
+##################
+## Candidate World
+##################
+
+@vtcCost = 5000
+@vtcTime = 3600
+
+@vtcXCost = 7500
+@vtcXTime = 5400
+
+@machineCost = 10000
+@machineTime = 7200
+
+@hiveCost = 10000
+@hiveTime = 7200
+
+@highestCost = 12500
+@highestTime = 9000
+
+terraform_link = {
+	from = "vtc_cold"
+	to = "pc_tundra"
+
+	condition = { has_technology = "tech_climate_restoration" }
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @vtcCost
+		}
+	}
+	duration = @vtcTime
+
+	potential = { from = { vtc_has_modifier = yes } }
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0	
+			resource_stockpile_compare = { resource = energy value < 10000 }
+		}
+		modifier = {
+			factor = 0.7
+			OR = {
+				is_mechanical_empire = yes
+				is_cyborg_empire = yes
+				has_authority = auth_machine_intelligence
+			}
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_cold"
+	to = "pc_arctic"
+
+	condition = { has_technology = "tech_climate_restoration" }
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @vtcCost
+		}
+	}
+	duration = @vtcTime
+
+	potential = { from = { vtc_has_modifier = yes } }
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0	
+			resource_stockpile_compare = { resource = energy value < 10000 }
+		}
+		modifier = {
+			factor = 0.7
+			OR = {
+				is_mechanical_empire = yes
+				is_cyborg_empire = yes
+				has_authority = auth_machine_intelligence
+			}
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_cold"
+	to = "pc_alpine"
+
+	condition = { has_technology = "tech_climate_restoration" }
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @vtcCost
+		}
+	}
+	duration = @vtcTime
+
+	potential = { from = { vtc_has_modifier = yes } }
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0	
+			resource_stockpile_compare = { resource = energy value < 10000 }
+		}
+		modifier = {
+			factor = 0.7
+			OR = {
+				is_mechanical_empire = yes
+				is_cyborg_empire = yes
+				has_authority = auth_machine_intelligence
+			}
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_cold"
+	to = "pc_gaia"
+
+	condition = { has_technology = "tech_climate_restoration" }
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @highestCost
+		}
+	}
+	duration = @highestTime
+
+	potential = {
+		has_ascension_perk = "ap_world_shaper"
+		from = { vtc_has_modifier = yes }
+	}
+	effect = { from = { vtc_clear_modifiers = yes } }
+	
+	ai_weight = {
+		weight = 2
+		modifier = {
+			factor = 0	
+			resource_stockpile_compare = { resource = energy value < 20000 }
+		}
+		modifier = {
+			factor = 0
+			OR = {		
+				is_mechanical_empire = yes
+				is_cyborg_empire = yes
+				has_authority = auth_machine_intelligence
+			}
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_cold"
+	to = "pc_machine"
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @machineCost
+		}
+	}
+	duration = @machineTime
+
+	potential = {
+		has_ascension_perk = ap_machine_worlds
+		from = { vtc_has_modifier = yes }
+	}
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 20
+		modifier = {
+			factor = 0
+			from = {
+				any_owned_pop = {
+					NOR = {
+						has_trait = trait_machine_unit
+						has_trait = trait_mechanical
+					}
+					is_sapient = yes
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			resource_stockpile_compare = { resource = energy value < 30000 }
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_cold"
+	to = "pc_hive"
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @hiveCost
+		}
+	}
+	duration = @hiveTime
+
+	potential = {
+		has_ascension_perk = ap_hive_worlds
+		from = { vtc_has_modifier = yes }
+	}
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 20
+		modifier = {
+			factor = 0
+			NOT = { has_origin = origin_necrophage }
+			from = {
+				any_owned_pop = {
+					NOT = { has_trait = trait_hive_mind }
+					is_sapient = yes
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			resource_stockpile_compare = { resource = energy value < 30000 }
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_toxic"
+	to = "pc_continental"
+
+	condition = { has_technology = "tech_climate_restoration" }
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @vtcCost
+		}
+	}
+	duration = @vtcTime
+
+	potential = { from = { vtc_has_modifier = yes } }
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0	
+			resource_stockpile_compare = { resource = energy value < 10000 }
+		}
+		modifier = {
+			factor = 0.5
+			OR = {
+				is_mechanical_empire = yes
+				is_cyborg_empire = yes
+				has_authority = auth_machine_intelligence
+			}
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_toxic"
+	to = "pc_ocean"
+
+	condition = { has_technology = "tech_climate_restoration" }
+
+	resources = {
+		category = terraforming_ocean
+
+		cost = {
+			energy = @highestCost
+		}
+	}
+	duration = @highestTime
+
+	potential = { from = { vtc_has_modifier = yes } }
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0	
+			resource_stockpile_compare = { resource = energy value < 10000 }
+		}
+		modifier = {
+			factor = 4
+			has_trait = trait_aquatic
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_toxic"
+	to = "pc_tropical"
+
+	condition = { has_technology = "tech_climate_restoration" }
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @vtcCost
+		}
+	}
+	duration = @vtcTime
+
+	potential = { from = { vtc_has_modifier = yes } }
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0	
+			resource_stockpile_compare = { resource = energy value < 10000 }
+		}
+		modifier = {
+			factor = 0.5
+			OR = {
+				is_mechanical_empire = yes
+				is_cyborg_empire = yes
+				has_authority = auth_machine_intelligence
+			}
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_toxic"
+	to = "pc_gaia"
+
+	condition = { has_technology = "tech_climate_restoration" }
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @highestCost
+		}
+	}
+	duration = @highestTime
+
+	potential = {
+		has_ascension_perk = "ap_world_shaper"
+		from = { vtc_has_modifier = yes }
+	}
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 2
+		modifier = {
+			factor = 0	
+			resource_stockpile_compare = { resource = energy value < 20000 }
+		}
+		modifier = {
+			factor = 0
+			OR = {		
+				is_mechanical_empire = yes
+				is_cyborg_empire = yes
+				has_authority = auth_machine_intelligence
+			}
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_toxic"
+	to = "pc_machine"
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @machineCost
+		}
+	}
+	duration = @machineTime
+
+	potential = {
+		has_ascension_perk = ap_machine_worlds
+		from = { vtc_has_modifier = yes }
+	}
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 20
+		modifier = {
+			factor = 0
+			from = {
+				any_owned_pop = {
+					NOR = {
+						has_trait = trait_machine_unit
+						has_trait = trait_mechanical
+					}
+					is_sapient = yes
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			resource_stockpile_compare = { resource = energy value < 30000 }
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_toxic"
+	to = "pc_hive"
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @hiveCost
+		}
+	}
+	duration = @hiveTime
+
+	potential = {
+		has_ascension_perk = ap_hive_worlds
+		from = { vtc_has_modifier = yes }
+	}
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 20
+		modifier = {
+			factor = 0
+			NOT = { has_origin = origin_necrophage }
+			from = {
+				any_owned_pop = {
+					NOT = { has_trait = trait_hive_mind }
+					is_sapient = yes
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			resource_stockpile_compare = { resource = energy value < 30000 }
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_candidate"
+	to = "pc_arid"
+
+	condition = { has_technology = "tech_climate_restoration" }
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @vtcCost
+		}
+	}
+	duration = @vtcTime
+
+	potential = { from = { vtc_has_modifier = yes } }
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0	
+			resource_stockpile_compare = { resource = energy value < 10000 }
+		}
+		modifier = {
+			factor = 0.5
+			OR = {
+				is_mechanical_empire = yes
+				is_cyborg_empire = yes
+				has_authority = auth_machine_intelligence
+			}
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_candidate"
+	to = "pc_desert"
+
+	condition = { has_technology = "tech_climate_restoration" }
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @vtcCost
+		}
+	}
+	duration = @vtcTime
+
+	potential = { from = { vtc_has_modifier = yes } }
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0	
+			resource_stockpile_compare = { resource = energy value < 10000 }
+		}
+		modifier = {
+			factor = 0.5
+			OR = {
+				is_mechanical_empire = yes
+				is_cyborg_empire = yes
+				has_authority = auth_machine_intelligence
+			}
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_candidate"
+	to = "pc_savannah"
+
+	condition = { has_technology = "tech_climate_restoration" }
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @vtcCost
+		}
+	}
+	duration = @vtcTime
+
+	potential = { from = { vtc_has_modifier = yes } }
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0	
+			resource_stockpile_compare = { resource = energy value < 10000 }
+		}
+		modifier = {
+			factor = 0.5
+			OR = {
+				is_mechanical_empire = yes
+				is_cyborg_empire = yes
+				has_authority = auth_machine_intelligence
+			}
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_candidate"
+	to = "pc_gaia"
+
+	condition = { has_technology = "tech_climate_restoration" }
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @highestCost
+		}
+	}
+	duration = @highestTime
+
+	potential = {
+		has_ascension_perk = "ap_world_shaper"
+		from = { vtc_has_modifier = yes }
+	}
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 2
+		modifier = {
+			factor = 0	
+			resource_stockpile_compare = { resource = energy value < 20000 }
+		}
+		modifier = {
+			factor = 0
+			OR = {		
+				is_mechanical_empire = yes
+				is_cyborg_empire = yes
+				has_authority = auth_machine_intelligence
+			}
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_candidate"
+	to = "pc_machine"
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @machineCost
+		}
+	}
+	duration = @machineTime
+
+	potential = {
+		has_ascension_perk = ap_machine_worlds
+		from = { vtc_has_modifier = yes }
+	}
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 20
+		modifier = {
+			factor = 0
+			from = {
+				any_owned_pop = {
+					NOR = {
+						has_trait = trait_machine_unit
+						has_trait = trait_mechanical
+					}
+					is_sapient = yes
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			resource_stockpile_compare = { resource = energy value < 30000 }
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_candidate"
+	to = "pc_hive"
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @hiveCost
+		}
+	}
+	duration = @hiveTime
+
+	potential = {
+		has_ascension_perk = ap_hive_worlds
+		from = { vtc_has_modifier = yes }
+	}
+	effect = { from = { vtc_clear_modifiers = yes } }
+
+	ai_weight = {
+		weight = 20
+		modifier = {
+			factor = 0
+			NOT = { has_origin = origin_necrophage }
+			from = {
+				any_owned_pop = {
+					NOT = { has_trait = trait_hive_mind }
+				}
+				is_sapient = yes
+			}
+		}
+		modifier = {
+			factor = 0
+			resource_stockpile_compare = { resource = energy value < 30000 }
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_molten"
+	to = "pc_desert"
+
+	condition = { has_technology = "tech_climate_restoration" }
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @vtcXCost
+		}
+	}
+	duration = @vtcXTime
+
+	potential = { from = { vtc_has_modifier = yes } }
+	effect = {
+		from = {
+			remove_modifier = vtc_volcano_planet
+			vtc_clear_modifiers = yes
+		}
+	}
+
+	ai_weight = {
+		weight = 20
+		modifier = {
+			factor = 0	
+			resource_stockpile_compare = { resource = energy value < 15000 }
+		}
+	}
+}
+
+terraform_link = {
+	from = "vtc_frozen"
+	to = "pc_arctic"
+
+	condition = { has_technology = "tech_climate_restoration" }
+
+	resources = {
+		category = terraforming
+
+		cost = {
+			energy = @vtcXCost
+		}
+	}
+	duration = @vtcXTime
+
+	potential = { from = { vtc_has_modifier = yes } }
+	effect = {
+		from = {
+			remove_modifier = vtc_ice_planet
+			vtc_clear_modifiers = yes
+		}
+	}
+
+	ai_weight = {
+		weight = 20
+		modifier = {
+			factor = 0	
+			resource_stockpile_compare = { resource = energy value < 15000 }
+		}
+	}
+}

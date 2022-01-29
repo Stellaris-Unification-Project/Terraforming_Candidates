@@ -1,0 +1,55 @@
+vtc_has_modifier = {
+	OR = {
+		has_modifier = "terraforming_candidate_precursor"
+		has_modifier = "apsr_terraforming_candidate"
+		has_modifier = "terraforming_candidate"
+	}
+}
+
+# if system was surveyed by any other country
+vtc_is_surveyed = {
+	any_country = {
+		NOT = { is_same_value = from.owner }
+		is_country_type = default
+		prev = { is_surveyed = { who = prev status = yes } }
+	}
+}
+
+# if system has any TC
+vtc_has_tc = {
+	solar_system = {
+		any_system_planet = {
+			vtc_has_modifier = yes
+		}
+	}
+}
+
+vtc_valid_planet = {
+	vtc_has_modifier = no
+	OR = {
+		is_planet_class = pc_barren
+		is_planet_class = pc_barren_cold
+		is_planet_class = pc_toxic
+		is_planet_class = pc_molten
+		is_planet_class = pc_frozen
+	}
+	planet_size > 9
+	planet_size < 26
+	solar_system = {
+		NOR = {
+			is_star_class = sc_black_hole
+			is_star_class = sc_pulsar
+			is_star_class = sc_neutron_star
+		}
+	}
+}
+
+vtc_planet_class = {
+	OR = {
+		is_planet_class = vtc_candidate
+		is_planet_class = vtc_cold
+		is_planet_class = vtc_toxic
+		is_planet_class = vtc_frozen
+		is_planet_class = vtc_molten
+	}
+}

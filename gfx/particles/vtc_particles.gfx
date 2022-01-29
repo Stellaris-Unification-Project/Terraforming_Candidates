@@ -1,0 +1,7 @@
+objectTypes = {
+	pdxparticle = {
+		name = "vtc_time_anomaly_effect"
+		type = "vtc_time_anomaly_effect"
+		scale = 1.0
+	}
+}

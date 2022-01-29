@@ -1,0 +1,103 @@
+vtc_candidate_category = {
+	desc = "vtc_candidate_category_desc"
+	picture = GFX_evt_drilling_for_gas
+	level = 3
+	should_ai_and_humans_use = yes
+
+	null_spawn_chance = 0.2
+
+	spawn_chance = {
+		modifier = {
+			add = 20
+			vtc_valid_planet = yes
+		}
+		modifier = {
+			factor = 0.1
+			has_global_flag = planetarydiversity
+		}
+		modifier = {
+			factor = 0.5
+			mid_game_years_passed >= 0
+		}
+		modifier = {
+			factor = 0.2
+			OR = {
+				vtc_has_tc = yes
+				end_game_years_passed >= 0
+			}
+		}
+		modifier = {
+			factor = 0
+			vtc_is_surveyed = yes
+		}
+	}
+	
+	on_success = {
+		0 = {
+			modifier = {
+				add = 1
+				from = {
+					is_planet_class = pc_barren
+				}
+			}
+			anomaly_event = vtc_anomaly.2575
+			max_once = no
+		}
+		0 = {
+			modifier = {
+				add = 1
+				from = {
+					is_planet_class = pc_barren_cold
+				}
+			}
+			anomaly_event = vtc_anomaly.01
+			max_once = no
+		}
+		0 = {
+			modifier = {
+				add = 1
+				from = {
+					is_planet_class = pc_toxic
+				}
+			}
+			anomaly_event = vtc_anomaly.02
+			max_once = no
+		}
+		0 = {
+			modifier = {
+				add = 1
+				from = {
+					is_planet_class = pc_molten
+				}
+			}
+			anomaly_event = vtc_anomaly.03
+			max_once = no
+		}
+		0 = {
+			modifier = {
+				add = 1
+				from = {
+					is_planet_class = pc_frozen
+				}
+			}
+			anomaly_event = vtc_anomaly.04
+			max_once = no
+		}
+		0 = {
+			modifier = {
+				add = 1
+				from = {
+					NOT = {
+						is_planet_class = pc_toxic
+						is_planet_class = pc_barren
+						is_planet_class = pc_barren_cold
+						is_planet_class = pc_molten
+						is_planet_class = pc_frozen
+					}
+				}
+			}
+			anomaly_event = vtc_anomaly.42
+			max_once = no
+		}
+	}
+}

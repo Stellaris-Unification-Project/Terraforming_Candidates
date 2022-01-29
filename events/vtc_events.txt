@@ -1,0 +1,207 @@
+namespace = vtc_anomaly
+
+### Terraforming Candidate
+ship_event = {
+	id = vtc_anomaly.2575
+	title = "vtc_anomaly.2575.name"
+	picture = GFX_evt_drilling_for_gas
+	location = FROM
+
+	desc = {
+		text = anomaly.2575.desc.1
+		trigger = {
+			NOT = { 
+				owner = { has_technology = "tech_climate_restoration" } 
+			}
+		}
+	}
+	desc = {
+		text = anomaly.2575.desc.2
+		trigger = {
+			owner = { has_technology = "tech_climate_restoration" }
+		}
+	}
+
+	is_triggered_only = yes
+	
+	option = {
+		name = FASCINATING
+		custom_tooltip = TERRAFORMING_CANDIDATE_EFFECT
+		hidden_effect = {
+			from = {
+				add_modifier = {
+					modifier = "terraforming_candidate"
+					days = -1
+				}
+				vtc_candidate_planet = yes
+			}		
+		}
+	}
+}
+
+ship_event = {
+	id = vtc_anomaly.01
+	title = "vtc_anomaly.2575.name.cold"
+	picture = GFX_evt_outpost
+	location = FROM
+
+	desc = {
+		text = vtc_anomaly.2575.desc.cold.1
+		trigger = {
+			NOT = { 
+				owner = { has_technology = "tech_climate_restoration" } 
+			}
+		}
+	}
+	desc = {
+		text = vtc_anomaly.2575.desc.cold.2
+		trigger = {
+			owner = { has_technology = "tech_climate_restoration" }
+		}
+	}
+
+	is_triggered_only = yes
+	
+	option = {
+		name = FASCINATING
+		custom_tooltip = TERRAFORMING_CANDIDATE_EFFECT
+		hidden_effect = {
+			from = {
+				add_modifier = {
+					modifier = "terraforming_candidate"
+					days = -1
+				}
+				vtc_candidate_planet = yes
+			}		
+		}
+	}
+}
+
+ship_event = {
+	id = vtc_anomaly.02
+	title = "vtc_anomaly.2575.name.toxic"
+	picture = GFX_evt_mining_operations
+	location = FROM
+
+	desc = {
+		text = vtc_anomaly.2575.desc.toxic.1
+		trigger = {
+			NOT = { 
+				owner = { has_technology = "tech_climate_restoration" } 
+			}
+		}
+	}
+	desc = {
+		text = vtc_anomaly.2575.desc.toxic.2
+		trigger = {
+			owner = { has_technology = "tech_climate_restoration" }
+		}
+	}
+
+	is_triggered_only = yes
+	
+	option = {
+		name = FASCINATING
+		custom_tooltip = TERRAFORMING_CANDIDATE_EFFECT
+		hidden_effect = {
+			from = {
+				add_modifier = {
+					modifier = "terraforming_candidate"
+					days = -1
+				}
+				vtc_candidate_planet = yes
+			}		
+		}
+	}
+}
+
+ship_event = {
+	id = vtc_anomaly.03
+	title = "vtc_anomaly.2575.name.volcano"
+	picture = GFX_evt_mining_operations
+	location = FROM
+
+	desc = {
+		text = vtc_anomaly.2575.desc.volcano.1
+		trigger = {
+			NOT = { 
+				owner = { has_technology = "tech_climate_restoration" } 
+			}
+		}
+	}
+	desc = {
+		text = vtc_anomaly.2575.desc.volcano.2
+		trigger = {
+			owner = { has_technology = "tech_climate_restoration" }
+		}
+	}
+
+	is_triggered_only = yes
+	
+	option = {
+		name = FASCINATING
+		custom_tooltip = TERRAFORMING_CANDIDATE_EFFECT
+		hidden_effect = {
+			from = {
+				add_modifier = {
+					modifier = "terraforming_candidate"
+					days = -1
+				}
+				vtc_candidate_planet = yes
+			}		
+		}
+	}
+}
+
+ship_event = {
+	id = vtc_anomaly.04
+	title = "vtc_anomaly.2575.name.frozen"
+	picture = GFX_evt_outpost
+	location = FROM
+
+	desc = {
+		text = vtc_anomaly.2575.desc.frozen.1
+		trigger = {
+			NOT = { 
+				owner = { has_technology = "tech_climate_restoration" } 
+			}
+		}
+	}
+	desc = {
+		text = vtc_anomaly.2575.desc.frozen.2
+		trigger = {
+			owner = { has_technology = "tech_climate_restoration" }
+		}
+	}
+
+	is_triggered_only = yes
+	
+	option = {
+		name = FASCINATING
+		custom_tooltip = TERRAFORMING_CANDIDATE_EFFECT
+		hidden_effect = {
+			from = {
+				add_modifier = {
+					modifier = "terraforming_candidate"
+					days = -1
+				}
+				vtc_candidate_planet = yes
+			}		
+		}
+	}
+}
+
+ship_event = {
+	id = vtc_anomaly.42
+	title = "vtc_anomaly.2575.name.wot"
+	picture = GFX_evt_interior_battle
+	location = FROM
+	desc = "vtc_anomaly.2575.desc.wot"
+
+	is_triggered_only = yes
+	
+	option = {
+		name = OOPS
+		custom_tooltip = vtc_anomaly.2575.wot
+	}
+}

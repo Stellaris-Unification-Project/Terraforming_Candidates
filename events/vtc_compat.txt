@@ -1,0 +1,147 @@
+namespace = vtc_compat
+
+# Compatibility fixes
+# 
+# Machine FE Task 5: Colonize a planet
+# id = fallen_machine_empire.50
+# id = fallen_machine_empire.51
+# May ask to colonize candidate planets
+# Let them to think about this better
+
+country_event = {
+	id = vtc_compat.50
+
+	hide_window = yes
+
+	mean_time_to_happen = {
+		days = 10
+	}
+
+	trigger = {		
+		is_ai = no
+		is_country_type = default
+		has_global_flag = fe_task_colonize_planet_active
+		has_country_flag = fe_task_colonize_planet
+		any_planet_within_border = {
+			has_planet_flag = fe_task_colonize_planet_target
+			OR = {
+				is_planet_class = vtc_candidate
+				is_planet_class = vtc_cold
+				is_planet_class = vtc_toxic
+				is_planet_class = vtc_molten
+				is_planet_class = vtc_frozen
+			}
+		}
+	}
+	immediate = {
+		random_planet_within_border = {
+			limit = { has_planet_flag = fe_task_colonize_planet_target }
+			save_event_target_as = OldTarget
+			remove_planet_flag = fe_task_colonize_planet_target
+		}
+
+		# OK, Let's find another planet
+		random_planet_within_border = {	
+			limit = {
+				NOR = {
+					is_planet_class = vtc_candidate
+					is_planet_class = vtc_cold
+					is_planet_class = vtc_toxic
+					is_planet_class = vtc_molten
+					is_planet_class = vtc_frozen
+				}
+				is_colony = no
+				can_colonize = { who = root status = yes }				
+			}
+			set_planet_flag = fe_task_colonize_planet_target
+			root = { country_event = { id = vtc_compat.51 } }
+		}
+		# Not found, let's excuse then
+		if = {
+			limit = {
+				NOT = {
+					any_planet_within_border = {
+						has_planet_flag = fe_task_colonize_planet_target
+					}
+				}
+			}
+			root = { country_event = { id = vtc_compat.52 } }
+		}
+	}
+}
+
+country_event = {
+	id = vtc_compat.51
+	title = vtc_compat.51.name
+	desc = vtc_compat.51.desc
+	location = event_target:FallenEmpireTaskTarget
+
+	is_triggered_only = yes
+
+	immediate = {
+		random_country = {
+			limit = { has_country_flag = fe_task_colonize_planet_origin }
+			save_event_target_as = FallenEmpireTaskOrigin
+		}
+		random_system = {
+			limit = {
+				any_system_planet = { has_planet_flag = fe_task_colonize_planet_target }
+			}
+			random_system_planet = {
+				limit = { has_planet_flag = fe_task_colonize_planet_target }
+				save_event_target_as = FallenEmpireTaskTarget
+			}
+		}
+	}
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+
+	option = {
+		name = OK
+	}
+}
+
+country_event = {
+	id = vtc_compat.52
+	title = vtc_compat.52.name
+	desc = vtc_compat.52.desc
+	location = event_target:OldTarget
+
+	is_triggered_only = yes
+
+	immediate = {
+		random_country = {
+			limit = { has_country_flag = fe_task_colonize_planet_origin }
+			save_event_target_as = FallenEmpireTaskOrigin
+		}
+		remove_global_flag = fe_task_colonize_planet_active
+		end_event_chain = fe_colonize_planet_task_chain
+	}
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+
+	option = {
+		name = OK
+		hidden_effect = {
+			every_country = {
+				remove_country_flag = fe_task_colonize_planet
+				remove_country_flag = fe_task_colonize_planet_origin
+			}
+		}
+	}
+}
+
